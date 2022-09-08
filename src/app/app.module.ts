@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,6 +16,8 @@ import { StoreModule } from '@ngrx/store';
 import { reducers, effects } from './store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { customersGeneratorFactory } from '@app/customers/services/customers-generator.factory';
+import { CustomersGeneratorService } from '@app/customers/services/customers-generator.service';
 
 @NgModule({
   imports: [
@@ -40,6 +42,14 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
     ShellModule,
     CustomersModule,
     AppRoutingModule // must be imported as the last module as it contains the fallback route
+  ],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: customersGeneratorFactory,
+      deps: [CustomersGeneratorService],
+      multi: true
+    }
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
