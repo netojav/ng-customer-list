@@ -1,5 +1,7 @@
-import { RouterEffects } from './router.effect';
+import { NotificationEffects } from './notification.effects';
+import { RouterEffects } from './router.effects';
 
-export const effects: any[] = [RouterEffects];
+export const effects: any[] = [RouterEffects, NotificationEffects];
 
-export * from './router.effect';
+export * from './router.effects';
+export * from './notification.effects';

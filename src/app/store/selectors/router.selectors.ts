@@ -1,9 +1,9 @@
 import { createSelector } from '@ngrx/store';
-import { getRouterState, RouterStateUrl } from '../reducers';
+import { selectRouterModuleState, RouterStateUrl } from '../reducers';
 import * as fromRouter from '@ngrx/router-store';
 
 export const selectRouterState = createSelector(
-  getRouterState,
+  selectRouterModuleState,
   (state: fromRouter.RouterReducerState<RouterStateUrl>) => {
     return state && state.state;
   }
@@ -17,6 +17,4 @@ export const {
   selectRouteParam, // factory function to select a route param
   selectRouteData, // select the current route data
   selectUrl // select the current url
-} = fromRouter.getSelectors(getRouterState);
-
-export const selectParams = createSelector(selectRouteParams, state => state);
+} = fromRouter.getSelectors(selectRouterModuleState);

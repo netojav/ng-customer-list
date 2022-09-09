@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { map, switchMap } from 'rxjs/operators';
+import { map, mergeMap, switchMap } from 'rxjs/operators';
 import { CustomersLocalStorageService } from '../services/customers-local-storage.service';
 import * as fromActions from './customers.actions';
+import * as fromRoot from '@app/store';
 
 @Injectable()
 export class CustomersEffects {
@@ -44,9 +45,20 @@ export class CustomersEffects {
     )
   );
 
+  editCustomerSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromActions.editCustomerSuccess),
+      mergeMap(({ customer }) => [
+        fromRoot.showNotification({
+          message: `${customer.firstName} ${customer.lastName} successfuly updated`
+        }),
+        fromRoot.back()
+      ])
+    )
+  );
+
   constructor(
     private customersService: CustomersLocalStorageService,
-    private store: Store,
     private actions$: Actions
   ) {}
 }

@@ -1,1 +1,2 @@
-export * from './router.selector';
+export * from './router.selectors';
+export * from './notification.selectors';
