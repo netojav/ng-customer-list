@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { faker } from '@faker-js/faker';
 import { BehaviorSubject } from 'rxjs';
 import { CUSTOMERS_COLLECTION } from '../constants';
-import { Customer } from '../types/customer';
+import { Customer, CustomerData } from '../types/customer';
 import { LocalStorageRefService } from './local-storage-ref.service';
 
 @Injectable()
@@ -9,15 +10,19 @@ export class CustomersLocalStorageService {
   private _localStorage: Storage;
 
   private customersBehavior$ = new BehaviorSubject<Customer[]>([]);
-  customers$ = this.customersBehavior$.asObservable();
 
   constructor(protected _localStorageRefService: LocalStorageRefService) {
     this._localStorage = this._localStorageRefService.localStorage;
+    this.customersBehavior$.next(this.customers);
   }
 
   private updateStorage(customers: Customer[]) {
     this._localStorage.setItem(CUSTOMERS_COLLECTION, JSON.stringify(customers));
     this.customersBehavior$.next(customers);
+  }
+
+  get customers$() {
+    return this.customersBehavior$.asObservable();
   }
 
   get customers() {
@@ -26,10 +31,16 @@ export class CustomersLocalStorageService {
     return customers;
   }
 
-  add(customer: Customer) {
+  add(data: CustomerData) {
+    const customer = {
+      id: faker.datatype.uuid(),
+      ...data
+    };
     const customers = [...this.customers, customer];
 
     this.updateStorage(customers);
+
+    return Promise.resolve(customer);
   }
 
   edit(customer: Customer) {
@@ -38,11 +49,13 @@ export class CustomersLocalStorageService {
     customers[customerToEditIndex] = { ...customer };
 
     this.updateStorage(customers);
+
+    return Promise.resolve();
   }
 
   get(customerId: string) {
     const customer = this.customers.find(_ => _.id === customerId);
 
-    return customer;
+    return Promise.resolve(customer);
   }
 }

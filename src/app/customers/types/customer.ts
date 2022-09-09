@@ -12,3 +12,9 @@ export interface Customer {
   email: string;
   phone?: string;
 }
+export type CustomerData = Omit<Customer, 'id'>;
+
+export interface SortBy {
+  field: 'firstName' | 'lastName' | 'status';
+  direction: 'asc' | 'desc';
+}

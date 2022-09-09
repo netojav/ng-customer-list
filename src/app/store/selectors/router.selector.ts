@@ -18,3 +18,5 @@ export const {
   selectRouteData, // select the current route data
   selectUrl // select the current url
 } = fromRouter.getSelectors(getRouterState);
+
+export const selectParams = createSelector(selectRouteParams, state => state);
