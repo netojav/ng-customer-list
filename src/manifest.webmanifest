@@ -1,6 +1,6 @@
 {
-  "name": "ng-covid-stats",
-  "short_name": "ng-covid-stats",
+  "name": "ng-customer-list",
+  "short_name": "ng-customer-list",
   "theme_color": "#488aff",
   "background_color": "#488aff",
   "display": "standalone",

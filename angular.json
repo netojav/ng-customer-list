@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-covid-stats": {
+    "ng-customer-list": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -79,10 +79,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ng-covid-stats:build:production"
+              "browserTarget": "ng-customer-list:build:production"
             },
             "development": {
-              "browserTarget": "ng-covid-stats:build:development"
+              "browserTarget": "ng-customer-list:build:development"
             },
             "ci": {
               "progress": false
@@ -93,7 +93,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng-covid-stats:build"
+            "browserTarget": "ng-customer-list:build"
           }
         },
         "test": {
@@ -134,11 +134,11 @@
         "cypress-run": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "ng-covid-stats:serve"
+            "devServerTarget": "ng-customer-list:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ng-covid-stats:serve:production"
+              "devServerTarget": "ng-customer-list:serve:production"
             }
           }
         },
@@ -152,16 +152,16 @@
         "e2e": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "ng-covid-stats:serve"
+            "devServerTarget": "ng-customer-list:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ng-covid-stats:serve:production"
+              "devServerTarget": "ng-customer-list:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "ng-covid-stats"
+  "defaultProject": "ng-customer-list"
 }
