@@ -47,13 +47,19 @@ export class CustomersEffects {
 
   editCustomerSuccess$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromActions.editCustomerSuccess),
-      mergeMap(({ customer }) => [
-        fromRoot.showNotification({
-          message: `${customer.firstName} ${customer.lastName} successfuly updated`
-        }),
-        fromRoot.back()
-      ])
+      ofType(fromActions.editCustomerSuccess, fromActions.addCustomerSuccess),
+      mergeMap(action => {
+        const { customer, type } = action;
+        const actionTriggered = `${
+          type.indexOf('Add') >= 0 ? 'added' : 'updated'
+        }`;
+        return [
+          fromRoot.showNotification({
+            message: `${customer.firstName} ${customer.lastName} successfuly ${actionTriggered}`
+          }),
+          fromRoot.back()
+        ];
+      })
     )
   );
 
