@@ -5,13 +5,15 @@
   "scripts": {
     "ng": "ng",
     "build": "npm run write:env -s && ng build",
+    "build:prod": "npm run write:env -s && ng build --configuration=production",
     "start": "npm run write:env -s && ng serve",
     "serve:sw": "npm run build -s && npx http-server ./dist -p 4200",
     "lint": "ng lint && stylelint \"src/**/*.scss\"",
     "test": "npm run write:env -s && ng test",
     "test:ci": "npm run write:env -s && npm run lint -s && ng test --configuration=ci",
     "write:env": "ngx-scripts env npm_package_version",
-    "generate": "ng generate"
+    "generate": "ng generate",
+    "deploy": "npm run build:prod && firebase deploy --project=ng-customer-list"
   },
   "dependencies": {
     "@angular/animations": "~13.1.0",
