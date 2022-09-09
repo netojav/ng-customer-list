@@ -19,7 +19,7 @@ import { CustomersFacade } from '@app/customers/store/customers.facade';
               (searchChange)="customersFacade.filterByLastName($event)"
             ></app-search-box>
             <button mat-flat-button color="primary" [routerLink]="['add']">
-              Add New Customer
+              Add New
             </button>
           </div>
           <app-customer-list

@@ -16,8 +16,7 @@ import { Customer, SortBy } from '@app/customers/types/customer';
   template: `
     <div class="container  mat-elevation-z5">
       <div class="table-container">
-        <table
-          mat-table
+        <mat-table
           [dataSource]="dataSource"
           matSort
           [matSortActive]="sortBy.field"
@@ -25,60 +24,74 @@ import { Customer, SortBy } from '@app/customers/types/customer';
           (matSortChange)="onSort($event)"
         >
           <ng-container matColumnDef="firstName">
-            <th
-              mat-header-cell
+            <mat-header-cell
               *matHeaderCellDef
               mat-sort-header
               sortActionDescription="Sort by First Name"
             >
               First Name
-            </th>
-            <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">First Name:</span>
+              {{ element.firstName }}
+            </mat-cell>
           </ng-container>
           <ng-container matColumnDef="lastName">
-            <th
-              mat-header-cell
+            <mat-header-cell
               *matHeaderCellDef
               mat-sort-header
               sortActionDescription="Sort by Last Name"
             >
               Last Name
-            </th>
-            <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Last Name:</span>
+              {{ element.lastName }}
+            </mat-cell>
           </ng-container>
           <ng-container matColumnDef="status">
-            <th
-              mat-header-cell
+            <mat-header-cell
               *matHeaderCellDef
               mat-sort-header
               sortActionDescription="Sort by Status"
             >
               Status
-            </th>
-            <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Status:</span> {{ element.status }}
+            </mat-cell>
           </ng-container>
           <ng-container matColumnDef="email">
-            <th mat-header-cell *matHeaderCellDef>Email</th>
-            <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+            <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Email:</span> {{ element.email }}
+            </mat-cell>
           </ng-container>
           <ng-container matColumnDef="phone">
-            <th mat-header-cell *matHeaderCellDef>Phone</th>
-            <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+            <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">Phone:</span> {{ element.phone }}
+            </mat-cell>
           </ng-container>
           <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let element">
-              <a matTooltip="Edit Customer" [routerLink]="[element.id, 'edit']">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span class="mobile-label">actions:</span>
+              <a
+                mat-icon-button
+                color="accent"
+                matTooltip="Edit Customer"
+                [routerLink]="[element.id, 'edit']"
+              >
                 <mat-icon>edit</mat-icon>
               </a>
-            </td>
+            </mat-cell>
           </ng-container>
-          <tr
-            mat-header-row
+          <mat-header-row
             *matHeaderRowDef="displayedColumns; sticky: true"
-          ></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
+          ></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
       </div>
       <mat-paginator
         [length]="customerLength"
@@ -89,23 +102,7 @@ import { Customer, SortBy } from '@app/customers/types/customer';
       ></mat-paginator>
     </div>
   `,
-  styles: [
-    `
-      .container {
-        position: relative;
-        width: 100%;
-      }
-      .table-container {
-        position: relative;
-        min-height: 200px;
-        max-height: 400px;
-        overflow: auto;
-      }
-      table {
-        width: 100%;
-      }
-    `
-  ]
+  styleUrls: ['./list.component.scss']
 })
 export class CustomerListComponent implements OnChanges {
   @Input() customers: Customer[];

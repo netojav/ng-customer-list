@@ -6,15 +6,21 @@ import { Customer, CustomerStatus } from '@app/customers/types/customer';
   selector: 'app-customer-form',
   template: `
     <form fxFlex="100%" fxLayout="column" fxLayoutGap="10px" [formGroup]="form">
-      <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
-        <mat-form-field fxFlex="50%">
+      <div
+        fxLayout="row"
+        fxLayout.xs="column"
+        fxLayoutAlign.xs="start"
+        fxLayoutAlign="start start"
+        fxLayoutGap="10px"
+      >
+        <mat-form-field fxFlex="50%" fxFlex.xs="100%">
           <mat-label>First Name</mat-label>
           <input matInput formControlName="firstName" required />
           <mat-error *ngIf="firstNameField.hasError('required')"
             >Field is Required</mat-error
           >
         </mat-form-field>
-        <mat-form-field fxFlex="50%">
+        <mat-form-field fxFlex="50%" fxFlex.xs="100%">
           <mat-label>Last Name</mat-label>
           <input matInput formControlName="lastName" required />
           <mat-error *ngIf="lastNameField.hasError('required')"
@@ -22,8 +28,14 @@ import { Customer, CustomerStatus } from '@app/customers/types/customer';
           >
         </mat-form-field>
       </div>
-      <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
-        <mat-form-field fxFlex="50%">
+      <div
+        fxLayout="row"
+        fxLayout.xs="column"
+        fxLayoutAlign.xs="start"
+        fxLayoutAlign="start start"
+        fxLayoutGap="10px"
+      >
+        <mat-form-field fxFlex="50%" fxFlex.xs="100%">
           <mat-label>Status</mat-label>
           <mat-select formControlName="status" required>
             <mat-option *ngFor="let status of statuses" [value]="status">{{
@@ -35,7 +47,7 @@ import { Customer, CustomerStatus } from '@app/customers/types/customer';
           >
         </mat-form-field>
 
-        <mat-form-field fxFlex="50%">
+        <mat-form-field fxFlex="50%" fxFlex.xs="100%">
           <mat-label>Email</mat-label>
           <input matInput formControlName="email" required />
           <mat-error *ngIf="emailField.hasError('required')"
@@ -46,8 +58,14 @@ import { Customer, CustomerStatus } from '@app/customers/types/customer';
           >
         </mat-form-field>
       </div>
-      <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
-        <mat-form-field fxFlex="50%">
+      <div
+        fxLayout="row"
+        fxLayout.xs="column"
+        fxLayoutAlign.xs="start"
+        fxLayoutAlign="start start"
+        fxLayoutGap="10px"
+      >
+        <mat-form-field fxFlex="50%" fxFlex.xs="100%">
           <mat-label>Phone</mat-label>
           <input matInput formControlName="phone" />
           <mat-error *ngIf="phoneField.hasError('pattern')"
