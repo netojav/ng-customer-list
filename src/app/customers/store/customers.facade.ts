@@ -1,5 +1,5 @@
 import { Store } from '@ngrx/store';
-import { Customer, CustomerData } from '../types/customer';
+import { Customer, CustomerData, SortBy } from '../types/customer';
 import * as fromSelectors from './customers.selectors';
 import * as fromActions from './customers.actions';
 import { Injectable } from '@angular/core';
@@ -25,5 +25,13 @@ export class CustomersFacade {
 
   edit(customer: Customer) {
     this.store.dispatch(fromActions.editCustomer({ customer }));
+  }
+
+  filterByLastName(searchTerm: string) {
+    this.store.dispatch(fromActions.filterCustomersByLastName({ searchTerm }));
+  }
+
+  sortBy(sortBy: SortBy) {
+    this.store.dispatch(fromActions.sortCustomers({ sortBy }));
   }
 }

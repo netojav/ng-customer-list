@@ -15,6 +15,6 @@ export interface Customer {
 export type CustomerData = Omit<Customer, 'id'>;
 
 export interface SortBy {
-  field: 'firstName' | 'lastName' | 'status';
-  direction: 'asc' | 'desc';
+  field: string;
+  direction: '' | 'asc' | 'desc';
 }

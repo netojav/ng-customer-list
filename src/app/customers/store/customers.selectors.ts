@@ -18,13 +18,15 @@ export const selectFilteredAndSorteredCustomers = createSelector(
   (state, customers) => {
     const filteredCustomers = customers.filter(_ =>
       state.searchByLastNameTerm
-        ? _.lastName.toLowerCase() === state.searchByLastNameTerm.toLowerCase()
+        ? _.lastName
+            .toLowerCase()
+            .indexOf(state.searchByLastNameTerm.toLowerCase()) >= 0
         : true
     );
     return orderBy(
       filteredCustomers,
       state.sortBy.field,
-      state.sortBy.direction
+      state.sortBy.direction ? state.sortBy.direction : true
     );
   }
 );
