@@ -7,8 +7,11 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class CustomersFacade {
   customers$ = this.store.select(
-    fromSelectors.selectFilteredAndSorteredCustomers
+    fromSelectors.selectFilteredAndSorteredCustomersPaginated
   );
+
+  customersLength$ = this.store.select(fromSelectors.selectCustomersLength);
+
   sortBy$ = this.store.select(fromSelectors.selectSortBy);
   searchTerm$ = this.store.select(fromSelectors.selectSearchByLastNameTerm);
   currentCustomer$ = this.store.select(fromSelectors.selectCurrentCustomer);
@@ -33,5 +36,8 @@ export class CustomersFacade {
 
   sortBy(sortBy: SortBy) {
     this.store.dispatch(fromActions.sortCustomers({ sortBy }));
+  }
+  paginateCustomers(event: { pageIndex: number; pageSize: number }) {
+    this.store.dispatch(fromActions.paginateCustomers(event));
   }
 }

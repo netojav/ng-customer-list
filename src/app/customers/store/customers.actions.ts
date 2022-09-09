@@ -50,3 +50,7 @@ export const sortCustomers = createAction(
   '[Customers] Sort Customers',
   props<{ sortBy: SortBy }>()
 );
+export const paginateCustomers = createAction(
+  '[Customers] paginate Customers',
+  props<{ pageIndex: number; pageSize: number }>()
+);

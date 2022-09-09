@@ -31,6 +31,21 @@ export const selectFilteredAndSorteredCustomers = createSelector(
   }
 );
 
+export const selectFilteredAndSorteredCustomersPaginated = createSelector(
+  selectCustomerModuleState,
+  selectFilteredAndSorteredCustomers,
+  (state, customers) =>
+    customers?.slice(
+      state.pageIndex * state.pageSize,
+      (state.pageIndex + 1) * state.pageSize
+    )
+);
+
+export const selectCustomersLength = createSelector(
+  selectFilteredAndSorteredCustomers,
+  customers => customers?.length ?? 0
+);
+
 export const selectSortBy = createSelector(
   selectCustomerModuleState,
   state => state?.sortBy

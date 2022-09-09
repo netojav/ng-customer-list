@@ -8,7 +8,11 @@ import { CustomersFacade } from '@app/customers/store/customers.facade';
       <mat-card-title>Customer List</mat-card-title>
       <mat-card-content>
         <div fxLayout="column" fxLayoutGap="10px">
-          <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+          <div
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+            fxLayoutGap="10px"
+          >
             <app-search-box
               fxFlex="65%"
               [searchTerm]="customersFacade.searchTerm$ | async"
@@ -21,8 +25,10 @@ import { CustomersFacade } from '@app/customers/store/customers.facade';
           <app-customer-list
             fxLayout="row"
             [customers]="customersFacade.customers$ | async"
+            [customerLength]="customersFacade.customersLength$ | async"
             [sortBy]="customersFacade.sortBy$ | async"
             (customersSorted)="customersFacade.sortBy($event)"
+            (pageChange)="customersFacade.paginateCustomers($event)"
           ></app-customer-list>
         </div>
       </mat-card-content>

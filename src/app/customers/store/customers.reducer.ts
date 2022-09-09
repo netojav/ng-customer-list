@@ -6,13 +6,17 @@ import * as customerActions from './customers.actions';
 export interface State extends EntityState<Customer> {
   sortBy: SortBy;
   searchByLastNameTerm: string;
+  pageIndex: number;
+  pageSize: number;
 }
 
 export const adapter: EntityAdapter<Customer> = createEntityAdapter<Customer>();
 
 const initialState: State = adapter.getInitialState({
   sortBy: { field: 'lastName', direction: 'asc' },
-  searchByLastNameTerm: null
+  searchByLastNameTerm: null,
+  pageIndex: 0,
+  pageSize: 20
 });
 
 export const reducer = createReducer(
@@ -40,5 +44,10 @@ export const reducer = createReducer(
   on(customerActions.sortCustomers, (state, action) => ({
     ...state,
     sortBy: action.sortBy
+  })),
+  on(customerActions.paginateCustomers, (state, action) => ({
+    ...state,
+    pageIndex: action.pageIndex,
+    pageSize: action.pageSize
   }))
 );
