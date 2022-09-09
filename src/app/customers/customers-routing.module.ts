@@ -11,17 +11,17 @@ const routes: Routes = [
     {
       path: 'customers',
       component: CustomerListContainerComponent,
-      data: { title: 'Covid-19 - Countries Stats' }
+      data: { title: 'Customers' }
     },
     {
       path: 'customers/add',
       component: CustomerAddContainerComponent,
-      data: { title: 'Covid-19 - Country Stats Details' }
+      data: { title: 'Add new customer' }
     },
     {
       path: 'customers/:customerId/edit',
       component: CustomerEditContainerComponent,
-      data: { title: 'Covid-19 - Country Stats Details' }
+      data: { title: 'Edit Customer' }
     }
   ])
 ];

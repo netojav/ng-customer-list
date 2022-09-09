@@ -2,11 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
-import { environment } from '@env/environment';
-import { Logger, UntilDestroy, untilDestroyed } from '@shared';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter, map, switchMap } from 'rxjs/operators';
-
-const log = new Logger('App');
 
 @UntilDestroy()
 @Component({
@@ -22,11 +19,6 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Setup logger
-    if (environment.production) {
-      Logger.enableProductionMode();
-    }
-
     const onNavigationEnd$ = this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     );
@@ -50,7 +42,5 @@ export class AppComponent implements OnInit {
           this.titleService.setTitle(title);
         }
       });
-
-    log.debug('init');
   }
 }
