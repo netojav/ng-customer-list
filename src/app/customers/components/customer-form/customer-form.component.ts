@@ -5,66 +5,80 @@ import { Customer, CustomerStatus } from '@app/customers/types/customer';
 @Component({
   selector: 'app-customer-form',
   template: `
-    <form fxLayout="column" fxLayoutGap="10px" [formGroup]="form">
-      <mat-form-field>
-        <mat-label>First Name</mat-label>
-        <input matInput formControlName="firstName" required />
-        <mat-error *ngIf="firstNameField.hasError('required')"
-          >Field is Required</mat-error
+    <form fxFlex="100%" fxLayout="column" fxLayoutGap="10px" [formGroup]="form">
+      <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+        <mat-form-field fxFlex="50%">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstName" required />
+          <mat-error *ngIf="firstNameField.hasError('required')"
+            >Field is Required</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field fxFlex="50%">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName" required />
+          <mat-error *ngIf="lastNameField.hasError('required')"
+            >Field is Required</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+        <mat-form-field fxFlex="50%">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status" required>
+            <mat-option *ngFor="let status of statuses" [value]="status">{{
+              status | titlecase
+            }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="statusField.hasError('required')"
+            >Field is Required</mat-error
+          >
+        </mat-form-field>
+
+        <mat-form-field fxFlex="50%">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required />
+          <mat-error *ngIf="emailField.hasError('required')"
+            >Field is Required</mat-error
+          >
+          <mat-error *ngIf="emailField.hasError('email')"
+            >invalid email address</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+        <mat-form-field fxFlex="50%">
+          <mat-label>Phone</mat-label>
+          <input matInput formControlName="phone" />
+          <mat-error *ngIf="phoneField.hasError('pattern')"
+            >Invalid phone number</mat-error
+          >
+        </mat-form-field>
+      </div>
+
+      <div
+        fxFlex="100%"
+        fxLayout="row"
+        fxLayoutAlign="end center"
+        fxLayoutGap="10px"
+      >
+        <button mat-stroked-button (click)="cancel.emit()">Cancel</button>
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="onSave()"
+          [disabled]="form.invalid"
         >
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Last Name</mat-label>
-        <input matInput formControlName="lastName" required />
-        <mat-error *ngIf="lastNameField.hasError('required')"
-          >Field is Required</mat-error
-        >
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Status</mat-label>
-        <mat-select formControlName="status" required>
-          <mat-option *ngFor="let status of statuses" [value]="status">{{
-            status | titlecase
-          }}</mat-option>
-        </mat-select>
-        <mat-error *ngIf="statusField.hasError('required')"
-          >Field is Required</mat-error
-        >
-        <mat-error></mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" required />
-        <mat-error *ngIf="emailField.hasError('required')"
-          >Field is Required</mat-error
-        >
-        <mat-error *ngIf="emailField.hasError('email')"
-          >invalid email address</mat-error
-        >
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Phone</mat-label>
-        <input matInput formControlName="phone" />
-        <mat-error *ngIf="phoneField.hasError('pattern')"
-          >Invalid phone number</mat-error
-        >
-      </mat-form-field>
-      <button mat-flat-button color="accent" (click)="onSave()">
-        Save Customer
-      </button>
+          Save Customer
+        </button>
+      </div>
     </form>
-  `,
-  styles: [
-    `
-      form {
-        width: 100%;
-      }
-    `
-  ]
+  `
 })
 export class CustomerFormComponent implements OnInit {
   @Input() customer: Customer;
   @Output() save = new EventEmitter<Customer>();
+  @Output() cancel = new EventEmitter<void>();
   form: FormGroup;
   statuses = Object.values(CustomerStatus);
   constructor(private formBuilder: FormBuilder) {}

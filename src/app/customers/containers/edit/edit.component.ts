@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomersFacade } from '@app/customers/store/customers.facade';
+import { CoreFacade } from '@app/store/facades/core.facade';
+import { filter } from 'rxjs/operators';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-customer-edit-container',
   template: `
@@ -12,6 +16,7 @@ import { CustomersFacade } from '@app/customers/store/customers.facade';
             fxLayout="row"
             [customer]="customersFacade.currentCustomer$ | async"
             (save)="customersFacade.edit($event)"
+            (cancel)="coreFacade.back()"
           ></app-customer-form>
         </div>
       </mat-card-content>
@@ -19,8 +24,16 @@ import { CustomersFacade } from '@app/customers/store/customers.facade';
   `
 })
 export class CustomerEditContainerComponent implements OnInit {
-  constructor(public customersFacade: CustomersFacade) {}
+  constructor(
+    public customersFacade: CustomersFacade,
+    public coreFacade: CoreFacade
+  ) {}
   ngOnInit(): void {
-    this.customersFacade.fetchCustomers();
+    this.customersFacade.customers$
+      .pipe(
+        untilDestroyed(this),
+        filter(_ => !_)
+      )
+      .subscribe(_ => this.customersFacade.fetchCustomers());
   }
 }
