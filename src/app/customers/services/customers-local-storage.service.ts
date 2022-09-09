@@ -16,7 +16,7 @@ export class CustomersLocalStorageService {
     this.customersBehavior$.next(this.customers);
   }
 
-  private updateStorage(customers: Customer[]) {
+  updateStorage(customers: Customer[]) {
     this._localStorage.setItem(CUSTOMERS_COLLECTION, JSON.stringify(customers));
     this.customersBehavior$.next(customers);
   }
