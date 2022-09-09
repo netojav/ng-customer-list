@@ -3,7 +3,7 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { filter } from 'rxjs/operators';
 
-import { UntilDestroy, untilDestroyed } from '@shared';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @UntilDestroy()
 @Component({
@@ -18,11 +18,11 @@ import { UntilDestroy, untilDestroyed } from '@shared';
               <mat-divider></mat-divider>
               <a
                 mat-list-item
-                routerLink="/statistics"
+                routerLink="/customers"
                 routerLinkActive="active"
                 (click)="sidenav.close()"
               >
-                <span>Statistics</span>
+                <span>Customers</span>
               </a>
               <mat-divider></mat-divider>
             </mat-list>
