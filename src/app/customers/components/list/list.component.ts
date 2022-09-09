@@ -9,7 +9,6 @@ import {
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Customer, SortBy } from '@app/customers/types/customer';
-import { omit } from 'lodash';
 
 @Component({
   selector: 'app-customer-list',
@@ -63,6 +62,14 @@ import { omit } from 'lodash';
         <th mat-header-cell *matHeaderCellDef>Phone</th>
         <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
       </ng-container>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <a matTooltip="Edit Customer" [routerLink]="[element.id, 'edit']">
+            <mat-icon>edit</mat-icon>
+          </a>
+        </td>
+      </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
@@ -87,7 +94,14 @@ export class CustomerListComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.customers.currentValue) {
       this.dataSource = new MatTableDataSource(this.customers);
-      this.displayedColumns = Object.keys(omit(this.customers[0], 'id'));
+      this.displayedColumns = [
+        'firstName',
+        'lastName',
+        'status',
+        'email',
+        'phone',
+        'id'
+      ];
     }
   }
 

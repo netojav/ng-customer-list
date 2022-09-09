@@ -5,9 +5,6 @@ import { CustomersFacade } from '@app/customers/store/customers.facade';
   selector: 'app-customer-list-container',
   template: `
     <mat-card class="container mat-elevation-z0">
-      <p>
-        <img class="logo" src="assets/logo.png" alt="ng customers list logo" />
-      </p>
       <mat-card-title>Customer List</mat-card-title>
       <mat-card-content>
         <div fxLayout="column" fxLayoutGap="10px">
