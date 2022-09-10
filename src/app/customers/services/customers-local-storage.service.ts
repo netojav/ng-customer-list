@@ -36,7 +36,7 @@ export class CustomersLocalStorageService {
       id: faker.datatype.uuid(),
       ...data
     };
-    const customers = [...this.customers, customer];
+    const customers = [...(this.customers ?? []), customer];
 
     this.updateStorage(customers);
 
